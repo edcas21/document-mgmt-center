@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import $ from 'jquery';
+import React, { useEffect, useState } from "react";
+import $ from "jquery";
+
+import { Header } from "./components/Header.component";
+import { Search } from "./components/Search.component";
+import { ViewArea } from "./components/ViewArea.component";
 
 function App() {
-
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    $.getJSON('https://jsonplaceholder.typicode.com/posts', data => {
-      setData(data)
-    })
-  })
+    $.getJSON("https://jsonplaceholder.typicode.com/posts?id=6", (data) => {
+      setData(data);
+    });
+  });
 
   return (
     <div className="App">
-      <h1>We're going to send a request to an api</h1>
-      {
-        data.map((post, index) => {
-          return(
-            <h2 key={index}>{post.title}</h2>
-          )
-        })
-      }
+      <Header />
+      <section>
+        <div className="container-fluid">
+          <div className="row vh-100">
+            {/* Search bar */}
+            <Search />
+            {/* Image viewing area */}
+            <ViewArea />
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
