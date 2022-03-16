@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import $ from 'jquery';
 
 function App() {
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    $.getJSON('https://jsonplaceholder.typicode.com/posts', data => {
+      setData(data)
+    })
+  })
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>We're going to send a request to an api</h1>
+      {
+        data.map((post, index) => {
+          return(
+            <h2 key={index}>{post.title}</h2>
+          )
+        })
+      }
     </div>
   );
 }
